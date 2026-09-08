@@ -27,6 +27,7 @@ public class TCPServer {
 					fw.close();
 
 					System.out.println("Upload Completed : " + filename);
+					
 				} else if (command.equals("DOWNLOAD")) {
 					String filename = dis.readUTF();
 

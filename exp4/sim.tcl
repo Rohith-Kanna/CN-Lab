@@ -6,7 +6,7 @@ set tracefile [open wired.tr w]
 $ns trace-all $tracefile
 
 #Create a animation infomration or NAM file creationset
-namfile [open wired.nam w]
+set namfile [open wired.nam w]
 $ns namtrace-all $namfile
 
 #Create nodes
