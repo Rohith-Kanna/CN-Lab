@@ -1,0 +1,25 @@
+=======================================================
+        IEEE 802.3 WIRED ETHERNET ANALYSIS
+=======================================================
+FLOW 1: n0 -> n5
+Packets Sent       : 171
+Packets Received   : 160
+Packets Lost*      : 11
+Total Data (Bytes) : 165400
+PDR (%)            : 93.57
+PLR (%)            : 6.43
+Average Delay (s)  : 0.302423
+Throughput (Mbps)  : 0.133992
+
+FLOW 2: n1 -> n4
+Packets Sent       : 15
+Packets Received   : 9
+Packets Lost*      : 6
+Total Data (Bytes) : 8360
+PDR (%)            : 60.00
+PLR (%)            : 40.00
+Average Delay (s)  : 2.268697
+Throughput (Mbps)  : 0.011565
+=======================================================
+*Packets Lost = packets counted as sent minus received;
+  interpret cautiously when TCP retransmissions occur.
