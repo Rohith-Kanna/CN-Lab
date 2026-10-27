@@ -1,61 +1,50 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.net.*;
 import java.io.*;
 
 public class ClientGUI {
-
     public static void main(String[] args) {
-
         try {
-
             Socket socket = new Socket("localhost", 5000);
 
-            BufferedReader in =
-                    new BufferedReader(
-                            new InputStreamReader(
-                                    socket.getInputStream()));
-            PrintWriter out =
-                    new PrintWriter(
-                            socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(
+                socket.getOutputStream(), true);
 
-            JFrame frame = new JFrame("Client Chat");
-            frame.setSize(500, 500);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null);
+            JFrame f = new JFrame("Client");
+            f.setSize(400, 400);
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            JTextArea chatArea = new JTextArea();
-            chatArea.setEditable(false);
-
-            JScrollPane scroll = new JScrollPane(chatArea);
-
-            JTextField input = new JTextField(25);
+            JTextArea chat = new JTextArea();
+            chat.setEditable(false);
+            JTextField input = new JTextField();
             JButton send = new JButton("Send");
 
-            JPanel panel = new JPanel();
-            panel.add(input);
-            panel.add(send);
+            JPanel p = new JPanel(new BorderLayout());
+            p.add(input, BorderLayout.CENTER);
+            p.add(send, BorderLayout.EAST);
 
-            frame.add(scroll, BorderLayout.CENTER);
-            frame.add(panel, BorderLayout.SOUTH);
-
-            frame.setVisible(true);
+            f.add(chat, BorderLayout.CENTER);
+            f.add(p, BorderLayout.SOUTH);
+            f.setVisible(true);
 
             send.addActionListener(e -> {
-                String msg = input.getText(); //sends msgs to server
+                String msg = input.getText();
                 out.println(msg);
-                chatArea.append("Client : " + msg + "\n");//displays the msg sent
+                chat.append("Client: " + msg + "\n");
                 input.setText("");
             });
 
-            while (true) {
-                String msg = in.readLine();  //reads msges from server
-                if (msg == null)
-                    break;
-                chatArea.append("Server : " + msg + "\n");  //displays the received msges
+            String msg;
+            while ((msg = in.readLine()) != null) {
+                chat.append("Server: " + msg + "\n");
                 if (msg.equalsIgnoreCase("bye"))
                     break;
             }
+
             socket.close();
 
         } catch (Exception e) {

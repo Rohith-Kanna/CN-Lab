@@ -16,12 +16,10 @@ public class MyClient {
 
             // Read the three numbers that will be sent to the remote add method.
             double op1 = Double.parseDouble(args[1]);
-
             double op2 = Double.parseDouble(args[2]);
             double op3 = Double.parseDouble(args[3]);
 
-            // Each call is executed by the server, even though it looks like a local method
-            // call.
+            // Each call is executed by the server, even though it looks like a local method call.
             System.out.println("Addition:" + obj.add(op1, op2));
             System.out.println("Addition:" + obj.add(op2, op3));
             System.out.println("Addition:" + obj.add(op3, op1));

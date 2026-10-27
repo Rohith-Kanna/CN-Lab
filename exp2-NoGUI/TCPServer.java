@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 
 public class TCPServer {
-
+    
     public static void main(String[] args) {
 
         try {
@@ -23,7 +23,7 @@ public class TCPServer {
 
             while (true) {
 
-                String command = dis.readUTF();
+                String command = dis.readUTF();  // reads the command from the client
 
                 // UPLOAD
                 if (command.equals("UPLOAD")) {
@@ -46,7 +46,7 @@ public class TCPServer {
                     String filename = dis.readUTF();
 
                     BufferedReader br =
-                        new BufferedReader(new FileReader(filename));
+                        new BufferedReader(new FileReader(filename)); 
 
                     StringBuilder data = new StringBuilder();
 

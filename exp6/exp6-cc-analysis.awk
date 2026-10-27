@@ -8,19 +8,20 @@ data1=0
 }
  
 {
+
 if($1=="r"&&$4==5)#http
-{
-data1+=$6
-if(flag1==0)
-{
-st1=$2
-flag1=1
-}
-if(flag1==1)
-{
-ft1=$2
-}
-}
+    {
+        data1+=$6
+        if(flag1==0)
+        {
+        st1=$2
+        flag1=1
+        }
+        if(flag1==1)
+        {
+        ft1=$2
+        }
+    }
 }
 
 END{

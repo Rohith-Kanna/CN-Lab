@@ -1,15 +1,11 @@
-# Create a simulator object with multicast ON
 set ns [new Simulator -multicast on]
 
-# Turn on Tracing
 set tf [open output.tr w]
 $ns trace-all $tf
 
-# Turn on nam Tracing
 set fd [open mcast.nam w]
 $ns namtrace-all $fd
 
-# Create 8 nodes (n0 to n7)
 set n0 [$ns node]
 set n1 [$ns node]
 set n2 [$ns node]
@@ -19,7 +15,6 @@ set n5 [$ns node]
 set n6 [$ns node]
 set n7 [$ns node]
 
-# Create links with DropTail Queues
 $ns duplex-link $n0 $n2 1.5Mb 10ms DropTail
 $ns duplex-link $n1 $n2 1.5Mb 10ms DropTail
 $ns duplex-link $n2 $n3 1.5Mb 10ms DropTail
@@ -28,31 +23,33 @@ $ns duplex-link $n3 $n7 1.5Mb 10ms DropTail
 $ns duplex-link $n4 $n5 1.5Mb 10ms DropTail
 $ns duplex-link $n4 $n6 1.5Mb 10ms DropTail
 
-# DM: dense-mode; SM: sparse-mode
 set mproto DM
 set mrthandle [$ns mrtproto $mproto {}]
 
-# Set two groups with group addresses
 set group1 [Node allocaddr]
 set group2 [Node allocaddr]
 
-# UDP Transport agent for the traffic source for group1
+# for group1
 set udp0 [new Agent/UDP]
 $ns attach-agent $n0 $udp0
+
 $udp0 set dst_addr_ $group1
 $udp0 set dst_port_ 0
+
 set cbr1 [new Application/Traffic/CBR]
 $cbr1 attach-agent $udp0
 
-# Transport agent for the traffic source for group2
+# for group2
 set udp1 [new Agent/UDP]
 $ns attach-agent $n1 $udp1
+
 $udp1 set dst_addr_ $group2
 $udp1 set dst_port_ 0
+
 set cbr2 [new Application/Traffic/CBR]
 $cbr2 attach-agent $udp1
 
-# Create receivers to accept packets for Group 1
+#receivers for Group 1
 set rcvr1 [new Agent/Null]
 $ns attach-agent $n5 $rcvr1
 $ns at 1.0 "$n5 join-group $rcvr1 $group1"
@@ -65,7 +62,7 @@ set rcvr3 [new Agent/Null]
 $ns attach-agent $n7 $rcvr3
 $ns at 2.0 "$n7 join-group $rcvr3 $group1"
 
-# Create receivers to accept packets for Group 2
+#receivers for Group 2
 set rcvr4 [new Agent/Null]
 $ns attach-agent $n5 $rcvr4
 $ns at 2.5 "$n5 join-group $rcvr4 $group2"
